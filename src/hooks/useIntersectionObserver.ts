@@ -5,6 +5,7 @@ type IntersectionObserverOptions = {
   root?: Element | null;
   rootMargin?: string;
   threshold?: number | number[];
+  loadImmediately?: boolean; // New option
 };
 
 type IntersectionResult = [React.RefObject<HTMLElement>, boolean];
@@ -19,6 +20,11 @@ export function useIntersectionObserver(
     const element = elementRef.current;
     if (!element) return;
 
+    if (options.loadImmediately) {
+      setIsVisible(true);
+      return;
+    }
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         setIsVisible(entry.isIntersecting);
@@ -31,12 +37,11 @@ export function useIntersectionObserver(
     );
 
     observer.observe(element);
-
     return () => {
       observer.unobserve(element);
       observer.disconnect();
     };
-  }, [options.root, options.rootMargin, options.threshold]);
+  }, [options]);
 
   return [elementRef, isVisible];
 }
