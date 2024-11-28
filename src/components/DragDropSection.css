@@ -1,0 +1,25 @@
+.description-container {
+    padding: 20px !important;
+    background-color: #f9f9f9 !important;
+    border-radius: 8px !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+  }
+  
+  .description-container h2 {
+    color: #2c3e50 !important;
+    margin-bottom: 16px !important;
+  }
+  
+  .description-container p {
+    color: #34495e !important;
+    line-height: 1.6 !important;
+  }
+  
+  .description-container ul {
+    list-style-type: disc !important;
+    padding-left: 20px !important;
+  }
+  
+  .description-container li {
+    margin-bottom: 8px !important;
+  }

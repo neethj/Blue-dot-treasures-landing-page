@@ -1,4 +1,3 @@
-import React from 'react';
 
 export default function Hero() {
   return (
@@ -15,8 +14,8 @@ export default function Hero() {
       <div className="relative h-full flex items-center justify-center">
         <div className="text-center text-white space-y-6 px-4">
           <h1 className="text-4xl md:text-6xl font-bold leading-tight">
-            Nature's Superfood for a
-            <span className="block text-emerald-400">Healthier You</span>
+            Bringing you Nature's Finest at
+            <span className="block text-emerald-400">Your Convenience</span>
           </h1>
           <p className="text-xl md:text-2xl max-w-2xl mx-auto text-gray-200">
             Discover the ancient wisdom of Moringa, packed with nutrients to enhance your daily wellness journey.

@@ -1,132 +1,27 @@
-// src/components/DragDropSection.tsx
-import { useState } from 'react';
-import { DragDropContext, Droppable, Draggable, DropResult } from '@hello-pangea/dnd';
+import React from 'react';
+import './DragDropSection.css';
 
-interface FoodItem {
-  id: string;
-  name: string;
-}
-
-const initialFoods: FoodItem[] = [
-  { id: 'food-1', name: 'Moringa Leaf' },
-  { id: 'food-2', name: 'Moringa Seed' },
-  { id: 'food-3', name: 'Moringa Root' },
-  { id: 'food-4', name: 'Moringa Pod' }
-];
-
-export default function DragDropSection() {
-  const [foods, setFoods] = useState<FoodItem[]>(initialFoods);
-  const [enhancedFoods, setEnhancedFoods] = useState<FoodItem[]>([]);
-
-  const reorderList = (list: FoodItem[], startIndex: number, endIndex: number) => {
-    const result = Array.from(list);
-    const [removed] = result.splice(startIndex, 1);
-    result.splice(endIndex, 0, removed);
-    return result;
-  };
-
-  const handleDragEnd = (result: DropResult) => {
-    if (!result.destination) return;
-
-    const { source, destination } = result;
-
-    if (source.droppableId === destination.droppableId) {
-      const items = reorderList(
-        source.droppableId === 'foods' ? foods : enhancedFoods,
-        source.index,
-        destination.index
-      );
-
-      if (source.droppableId === 'foods') {
-        setFoods(items);
-      } else {
-        setEnhancedFoods(items);
-      }
-    } else {
-      const sourceList = source.droppableId === 'foods' ? foods : enhancedFoods;
-      const destList = destination.droppableId === 'foods' ? foods : enhancedFoods;
-      const item = sourceList[source.index];
-
-      if (!enhancedFoods.some(food => food.id === item.id)) {
-        const newSourceList = [...sourceList];
-        const newDestList = [...destList];
-        
-        newSourceList.splice(source.index, 1);
-        newDestList.splice(destination.index, 0, item);
-
-        if (source.droppableId === 'foods') {
-          setFoods(newSourceList);
-          setEnhancedFoods(newDestList);
-        } else {
-          setEnhancedFoods(newSourceList);
-          setFoods(newDestList);
-        }
-      }
-    }
-  };
-
+const DragDropSection: React.FC = () => {
   return (
-    <section className="py-20 bg-white" id="drag-drop">
-      <div className="container mx-auto px-4">
-        <h2 className="text-3xl font-bold text-center mb-12">Enhanced Foods</h2>
-        <DragDropContext onDragEnd={handleDragEnd}>
-          <div className="flex flex-col md:flex-row gap-8">
-            <Droppable droppableId="foods">
-              {(provided) => (
-                <div
-                  {...provided.droppableProps}
-                  ref={provided.innerRef}
-                  className="flex-1 p-4 bg-gray-50 rounded-lg min-h-[300px]"
-                >
-                  <h3 className="text-xl font-semibold mb-4">Available Foods</h3>
-                  {foods.map((food, index) => (
-                    <Draggable key={food.id} draggableId={food.id} index={index}>
-                      {(provided) => (
-                        <div
-                          ref={provided.innerRef}
-                          {...provided.draggableProps}
-                          {...provided.dragHandleProps}
-                          className="p-4 mb-2 bg-white rounded shadow"
-                        >
-                          {food.name}
-                        </div>
-                      )}
-                    </Draggable>
-                  ))}
-                  {provided.placeholder}
-                </div>
-              )}
-            </Droppable>
-
-            <Droppable droppableId="enhanced">
-              {(provided) => (
-                <div
-                  {...provided.droppableProps}
-                  ref={provided.innerRef}
-                  className="flex-1 p-4 bg-emerald-50 rounded-lg min-h-[300px]"
-                >
-                  <h3 className="text-xl font-semibold mb-4">Enhanced Foods</h3>
-                  {enhancedFoods.map((food, index) => (
-                    <Draggable key={food.id} draggableId={food.id} index={index}>
-                      {(provided) => (
-                        <div
-                          ref={provided.innerRef}
-                          {...provided.draggableProps}
-                          {...provided.dragHandleProps}
-                          className="p-4 mb-2 bg-white rounded shadow"
-                        >
-                          {food.name}
-                        </div>
-                      )}
-                    </Draggable>
-                  ))}
-                  {provided.placeholder}
-                </div>
-              )}
-            </Droppable>
-          </div>
-        </DragDropContext>
-      </div>
-    </section>
+    <div className="description-container">
+      <h2>Moringa Powder: A Nutrient-Packed Addition to Your Favorite Foods</h2>
+      <p>
+        Moringa powder is a versatile and nutrient-dense superfood that can be easily incorporated into a variety of dishes. Whether you're looking to boost the nutritional value of your meals or simply add a unique flavor, moringa powder is an excellent choice. Here are some delicious ways to enjoy moringa powder:
+      </p>
+      <ul>
+        <li><strong>Pizza</strong>: Sprinkle moringa powder over your pizza for a healthy twist.</li>
+        <li><strong>Biriyani</strong>: Add a teaspoon of moringa powder to your biriyani for an extra boost of vitamins and minerals.</li>
+        <li><strong>Burger</strong>: Sprinkle moringa powder on top of your burger for added nutrition.</li>
+        <li><strong>Eggs</strong>: Stir moringa powder into scrambled eggs or omelets for a nutrient-packed breakfast.</li>
+        <li><strong>Soup</strong>: Blend moringa powder into your favorite soups for a healthy and flavorful addition.</li>
+        <li><strong>Smoothies</strong>: Add a spoonful of moringa powder to your smoothies for an easy way to increase your daily nutrient intake.</li>
+        <li><strong>Salads</strong>: Sprinkle moringa powder over your salads or mix it into your salad dressing for a nutritious boost.</li>
+      </ul>
+      <p>
+        Moringa powder is rich in vitamins, minerals, and antioxidants, making it a great addition to any diet. Its mild flavor allows it to blend seamlessly into both savory and sweet dishes, providing a healthy nutrient-packed punch to your meals.
+      </p>
+    </div>
   );
-}
+};
+
+export default DragDropSection;
